@@ -1,4 +1,4 @@
-name: GitHub Actions Sanity
+name: Build eBPF Module
 
 on:
   push:
