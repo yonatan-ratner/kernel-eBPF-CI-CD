@@ -1,16 +1,28 @@
-name: Build eBPF Module
+name: Build eBPF Modules
 
 on:
   push:
-    branches: 
-      - main
+    paths:
+      - 'modules/ebpf/**'
+      - 'ci/ebpf/scripts/**'
 
 jobs:
-  test-runner:
+  build_ebpf:
     runs-on: ubuntu-latest
+    
+    container:
+      image: ghcr.io/yonatan-ratner/clang-ebpf-builder:latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Test Runner
-        run: echo "GitHub Actions working fine"
+      - name: Build eBPF Modules
+        run: bash ci/ebpf/scripts/build_bpf.sh
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ebpf-artifacts
+          path: artifacts/ebpf/*.o
+
