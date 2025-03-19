@@ -12,18 +12,19 @@ jobs:
   build_kmod:
     runs-on: ubuntu-latest
 
-    container:
-      image: ghcr.io/yonatan-ratner/gcc-kmod-builder:latest
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GHCR_PAT }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build Kernel Module
-        run: bash ci/kernel/scripts/build_kmod.sh
+      - name: Docker Login (GHCR)
+        run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build Kernel Module (inside gcc-kmod-builder container)
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/workspace \
+            ghcr.io/yonatan-ratner/gcc-kmod-builder:latest \
+            sh -c "cd /workspace && ./ci/kernel/scripts/build_kmod.sh"
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
