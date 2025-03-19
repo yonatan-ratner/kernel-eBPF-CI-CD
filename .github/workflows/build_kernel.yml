@@ -5,6 +5,8 @@ on:
     paths:
       - 'modules/kernel/**'
       - 'ci/kernel/scripts/**'
+      - '.github/workflows/build_kernel.yml'
+  workflow_dispatch:  # allow manual trigger from UI
 
 jobs:
   build_kmod:
