@@ -1,0 +1,16 @@
+# Ignore all artifacts
+/artifacts/
+
+# Kernel build output
+modules/kernel/**/*.ko
+modules/kernel/**/*.mod.*
+modules/kernel/**/*.o
+modules/kernel/**/*.symvers
+modules/kernel/**/*.order
+
+# Editor junk (optional)
+*.swp
+*.swo
+.vscode/
+.idea/
+
