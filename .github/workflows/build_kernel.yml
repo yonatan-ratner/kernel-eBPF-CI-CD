@@ -21,8 +21,7 @@ jobs:
         run: bash ci/kernel/scripts/build_kmod.sh
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: kernel-modules
-          path: "path: artifacts/kernel/*.ko"
-
+          name: kernel-${{ github.ref_name }}-${{ github.run_number }}
+          path: artifacts/kernel/*.ko

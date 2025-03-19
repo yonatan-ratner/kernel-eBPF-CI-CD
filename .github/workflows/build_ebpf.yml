@@ -21,8 +21,8 @@ jobs:
         run: bash ci/ebpf/scripts/build_bpf.sh
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: ebpf-artifacts
-          path: artifacts/ebpf/*.o
+          name: ebpf-${{ github.ref_name }}-${{ github.run_number }}
+          path: artifacts/kernel/*.ko
 
