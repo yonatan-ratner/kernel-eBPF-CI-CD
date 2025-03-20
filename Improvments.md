@@ -10,3 +10,5 @@
 1. Multi-Platform (docker buildx build)
 2. Specific Kernel Version
 3. pull image from GHCR or build+push if no relevant image exists
+
+*. [Kata Containers](https://github.com/kata-containers/kata-containers) (pretty new, play around with after everything is DONE
