@@ -13,8 +13,8 @@ jobs:
   build_kmod:
     strategy:
       matrix:
-        base_image: [debian:bullseye, ubuntu:22.04]
-        kernel_version: [5.15.0, 6.1.0]
+        base_image: [ubuntu:22.04]
+        kernel_version: [generic]
         include:
           - arch: amd64
             runner: ubuntu-latest
@@ -24,7 +24,7 @@ jobs:
     runs-on: ${{ matrix.runner }}
 
     steps:
-      - name: Checkout code
+      - name: Checkout code1
         uses: actions/checkout@v3
 
       - name: Set env vars

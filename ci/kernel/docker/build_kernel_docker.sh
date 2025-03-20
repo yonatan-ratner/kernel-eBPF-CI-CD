@@ -2,12 +2,12 @@
 set -euo pipefail
 
 # Usage: ./build_kernel_docker.sh <base_image> <kernel_version>
-BASE_IMAGE="${1:-debian:bullseye}"
-KERNEL_VERSION="${2:-$(uname -r)}"
+BASE_IMAGE="${1:-ubuntu:22.04}"
+KERNEL_VERSION="${2:-generic}"
 ARCH="${3:-$(uname -m)}"
 
 if [[ -z "${GITHUB_USER:-}" ]]; then
-  echo "❌ GITHUB_USER environment variable not set"
+  echo "[ERROR] GITHUB_USER environment variable not set"
   exit 1
 fi
 
@@ -18,12 +18,13 @@ IMAGE="ghcr.io/${GITHUB_USER}/kmod-builder:${TAG}"
 
 echo "[INFO] Building kernel module builder image:" 
 echo "   Base Image:      $BASE_IMAGE"
-echo "   Kernel version:  $KERNEL_VERSION"
+#echo "   Kernel version:  $KERNEL_VERSION"
 echo "   Image tag:       $IMAGE"
 echo " ___________________________________________"
 
 docker buildx build \
   -t "$IMAGE" \
+  #--platform <comma-separated-platforms>
   --build-arg BASE_IMAGE="$BASE_IMAGE" \
   --build-arg KERNEL_VERSION="$KERNEL_VERSION" \
   -f "$(dirname "$0")/Dockerfile.kmod" \

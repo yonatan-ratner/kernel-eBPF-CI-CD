@@ -4,3 +4,8 @@
 0. Store and upload each artifact to its own 'folder' or 'space'
 1. after #0 - build and upload only changed artifacts
 *. JFrog? other options?
+
+## Kernel Module Compilation
+0. Multi-OS ?
+1. Multi-Platform
+2. Specific Kernel Version
