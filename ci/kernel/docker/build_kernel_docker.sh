@@ -22,7 +22,8 @@ echo "   Base Image:      $BASE_IMAGE"
 echo "   Image tag:       $IMAGE"
 echo " ___________________________________________"
 
-docker buildx build \
+docker build \
+#docker buildx build \  
   -t "$IMAGE" \
   #--platform <comma-separated-platforms>
   --build-arg BASE_IMAGE="$BASE_IMAGE" \
