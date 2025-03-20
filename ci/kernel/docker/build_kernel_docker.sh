@@ -18,7 +18,7 @@ IMAGE="ghcr.io/${GITHUB_USER}/kmod-builder:${TAG}"
 
 echo "[INFO] Building kernel module builder image:" 
 echo "   Base Image:      $BASE_IMAGE"
-#echo "   Kernel version:  $KERNEL_VERSION"
+echo "   Kernel version:  $KERNEL_VERSION"
 echo "   Image tag:       $IMAGE"
 echo " ___________________________________________"
 
