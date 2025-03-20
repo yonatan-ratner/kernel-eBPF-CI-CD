@@ -31,7 +31,8 @@ jobs:
       - name: Set env vars
         run: |
           echo "GITHUB_USER=${{ github.actor }}" >> $GITHUB_ENV
-          echo "ARCH=$(uname -m)" >> $GITHUB_ENV
+          ARCH=$(uname -m)
+          echo "ARCH=$ARCH" >> $GITHUB_ENV
           SAFE_TAG_OS=$(echo "${{ matrix.base_image }}" | tr ':/' '-' | tr '[:upper:]' '[:lower:]')
           echo "SAFE_TAG_OS=$SAFE_TAG_OS" >> $GITHUB_ENV
           echo "IMAGE_TAG=${SAFE_TAG_OS}-${{ matrix.kernel_version }}-${ARCH}" >> $GITHUB_ENV
