@@ -32,7 +32,8 @@ jobs:
         run: |
           echo "GITHUB_USER=${{ github.actor }}" >> $GITHUB_ENV
           echo "ARCH=$(uname -m)" >> $GITHUB_ENV
-          echo "SAFE_TAG_OS=$(echo '${{ matrix.base_image }}' | tr ':/' '-' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          SAFE_TAG_OS=$(echo "${{ matrix.base_image }}" | tr ':/' '-' | tr '[:upper:]' '[:lower:]')
+          echo "SAFE_TAG_OS=$SAFE_TAG_OS" >> $GITHUB_ENV
           echo "IMAGE_TAG=${SAFE_TAG_OS}-${{ matrix.kernel_version }}-${ARCH}" >> $GITHUB_ENV
 
       - name: Build 'kernel builder' container
@@ -40,7 +41,8 @@ jobs:
           ./ci/kernel/docker/build_kernel_docker.sh \
             "${{ matrix.base_image }}" \
             "${{ matrix.kernel_version }}" \
-            "$ARCH"
+            "$ARCH" \
+            "$IMAGE_TAG"
 
       - name: Build kernel modules inside container
         run: |

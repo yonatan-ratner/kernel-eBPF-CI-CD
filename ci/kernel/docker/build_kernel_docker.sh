@@ -8,6 +8,7 @@ set -x
 BASE_IMAGE="${1:-ubuntu:22.04}"
 KERNEL_VERSION="${2:-generic}"
 ARCH="${3:-$(uname -m)}"
+IMAGE_TAG="${4:-ubuntu-22.04-generic-${ARCH}}"
 
 if [[ -z "${GITHUB_USER:-}" ]]; then
   echo "[ERROR] GITHUB_USER environment variable not set"
