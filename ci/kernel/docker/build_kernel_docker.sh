@@ -34,3 +34,7 @@ docker build \
   "$(git rev-parse --show-toplevel)" \
 
 echo "✅ Image built: $IMAGE"
+
+docker push "$IMAGE"
+
+echo "✅ Image pushed: $IMAGE"
