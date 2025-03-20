@@ -3,11 +3,11 @@ set -e
 
 cd "$(dirname "$0")"
 
-for dir in */; do
-  script="$dir/scripts/build_${dir%/}_docker.sh"
+for domain in */; do
+  script="$domain/docker/build_${domain%/}_docker.sh"
   [ -x "$script" ] || continue
 
-  echo "[+] Building docker image for $dir"
+  echo "[+] Building docker image for $domain"
   "$script"
 done
 
