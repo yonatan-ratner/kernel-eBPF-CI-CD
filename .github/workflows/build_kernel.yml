@@ -3,9 +3,9 @@ name: Build Kernel Modules
 on:
   push:
     paths:
-      - 'modules/kernel/**'
-      - 'ci/kernel/scripts/**'
-      - '.github/workflows/build_kernel.yml'
+      - "modules/kernel/**"
+      - "ci/kernel/scripts/**"
+      - ".github/workflows/build_kernel.yml"
 
   workflow_dispatch: # allow manual trigger from UI
 
@@ -23,6 +23,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Install kernel headers
+        run: |
+          apt-get update
+          apt-get install -y linux-headers-$(uname -r)
+
       - name: Mark repo as safe
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
@@ -34,4 +39,3 @@ jobs:
         with:
           name: kernel-${{ github.ref_name }}-${{ github.run_number }}
           path: artifacts/kernel/*.ko
-
