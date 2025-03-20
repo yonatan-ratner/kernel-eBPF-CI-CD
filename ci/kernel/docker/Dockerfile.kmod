@@ -1,11 +1,19 @@
-FROM debian:bullseye
+# BASE_IMAGE arg default
+ARG BASE_IMAGE=debian:bullseye
+FROM ${BASE_IMAGE}
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    kmod \
-    git \
-    ca-certificates \
-    make \
-    bash && \
+ARG KERNEL_VERSION
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        kmod \
+        git \
+        make \
+        bash \
+        ca-certificates \
+        linux-headers-${KERNEL_VERSION} && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspace
 
