@@ -7,5 +7,5 @@
 
 ## Kernel Module Compilation
 0. Multi-OS ?
-1. Multi-Platform
+1. Multi-Platform (docker buildx build)
 2. Specific Kernel Version

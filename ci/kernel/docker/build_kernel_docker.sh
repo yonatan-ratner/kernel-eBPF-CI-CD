@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
+echo "[DEBUG] Running build_kernel_docker.sh"
+set -x
+
 # Usage: ./build_kernel_docker.sh <base_image> <kernel_version>
 BASE_IMAGE="${1:-ubuntu:22.04}"
 KERNEL_VERSION="${2:-generic}"
@@ -23,13 +26,10 @@ echo "   Image tag:       $IMAGE"
 echo " ___________________________________________"
 
 docker build \
-#docker buildx build \  
   -t "$IMAGE" \
-  #--platform <comma-separated-platforms>
   --build-arg BASE_IMAGE="$BASE_IMAGE" \
   --build-arg KERNEL_VERSION="$KERNEL_VERSION" \
   -f "$(dirname "$0")/Dockerfile.kmod" \
   "$(git rev-parse --show-toplevel)" \
-  --push
 
-echo "✅ Image built & pushed: $IMAGE"
+echo "✅ Image built: $IMAGE"
