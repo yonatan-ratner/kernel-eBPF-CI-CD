@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     
     container:
-      image: ghcr.io/yonatan-ratner/clang-ebpf-builder:latest
+      image: ghcr.io/yonatan-ratner/ebpf-builder:latest
       credentials:
         username: ${{ github.actor }}
         password: ${{ secrets.GHCR_PAT }}
