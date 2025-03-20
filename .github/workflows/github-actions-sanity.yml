@@ -15,3 +15,7 @@ jobs:
 
       - name: Test Runner
         run: echo "GitHub Actions working fine"
+
+      - name: Show workspace path
+        run: echo "$GITHUB_WORKSPACE"
+
