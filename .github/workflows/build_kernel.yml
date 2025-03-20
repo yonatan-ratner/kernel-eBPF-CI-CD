@@ -11,31 +11,46 @@ on:
 
 jobs:
   build_kmod:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        base_image: [debian:bullseye, ubuntu:22.04]
+        kernel_version: [5.15.0, 6.1.0]
+        include:
+          - arch: amd64
+            runner: ubuntu-latest
+          #- arch: arm64
+            #  runner: self-hosted
 
-    container:
-      image: ghcr.io/yonatan-ratner/kmod-builder:latest
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GHCR_PAT }}
+    runs-on: ${{ matrix.runner }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install kernel headers
+      - name: Set env vars
         run: |
-          apt-get update
-          apt-get install -y linux-headers-$(uname -r)
+          echo "GITHUB_USER=${{ github.actor }}" >> $GITHUB_ENV
+          echo "ARCH=$(uname -m)" >> $GITHUB_ENV
+          echo "SAFE_TAG_OS=$(echo '${{ matrix.base_image }}' | tr ':/' '-' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "IMAGE_TAG=${SAFE_TAG_OS}-${{ matrix.kernel_version }}-${ARCH}" >> $GITHUB_ENV
 
-      - name: Mark repo as safe
-        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Build 'kernel builder' container
+        run: |
+          ./ci/kernel/docker/build_kernel_docker.sh \
+            "${{ matrix.base_image }}" \
+            "${{ matrix.kernel_version }}" \
+            "$ARCH"
 
-      - name: Build Kernel Module
-        run: bash ci/kernel/scripts/build_kmod.sh
+      - name: Build kernel modules inside container
+        run: |
+          docker run --rm \
+            -v "$PWD":/workspace \
+            -w /workspace \
+            ghcr.io/$GITHUB_USER/kmod-builder:$IMAGE_TAG \
+            bash ci/kernel/scripts/build_kmod.sh
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: kernel-${{ github.ref_name }}-${{ github.run_number }}
+          name: kernel-${{ matrix.kernel_version }}-${{ matrix.arch }}
           path: artifacts/kernel/*.ko
