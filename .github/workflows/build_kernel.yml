@@ -5,6 +5,7 @@ on:
     paths:
       - "modules/kernel/**"
       - "ci/kernel/scripts/**"
+      - "ci/kernel/docker/**"
       - ".github/workflows/build_kernel.yml"
 
   workflow_dispatch: # allow manual trigger from UI
