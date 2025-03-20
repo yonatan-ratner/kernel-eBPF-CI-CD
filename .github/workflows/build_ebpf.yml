@@ -3,9 +3,10 @@ name: Build eBPF Modules
 on:
   push:
     paths:
-      - 'modules/ebpf/**'
-      - 'ci/ebpf/scripts/**'
-      - '.github/workflows/build_ebpf.yml'
+      - "modules/ebpf/**"
+      - "ci/ebpf/scripts/**"
+      - ".github/workflows/build_ebpf.yml"
+
   workflow_dispatch: # allow manual trigger from UI
 
 jobs:
