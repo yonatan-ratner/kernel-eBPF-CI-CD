@@ -35,6 +35,9 @@ jobs:
           SAFE_TAG_OS=$(echo "${{ matrix.base_image }}" | tr ':/' '-' | tr '[:upper:]' '[:lower:]')
           echo "SAFE_TAG_OS=$SAFE_TAG_OS" >> $GITHUB_ENV
           echo "IMAGE_TAG=${SAFE_TAG_OS}-${{ matrix.kernel_version }}-${ARCH}" >> $GITHUB_ENV
+      
+      - name: Login to GHCR
+        run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
       - name: Build 'kernel builder' container
         run: |

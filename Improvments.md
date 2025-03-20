@@ -9,3 +9,4 @@
 0. Multi-OS ?
 1. Multi-Platform (docker buildx build)
 2. Specific Kernel Version
+3. pull image from GHCR or build+push if no relevant image exists
