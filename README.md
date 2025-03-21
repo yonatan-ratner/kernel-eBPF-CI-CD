@@ -2,20 +2,20 @@
 
 This CI/CD pipeline builds Linux kernels and rootfs images inside a dedicated Docker-based QEMU builder environment, launches ephemeral VMs with exact target kernel/arch combinations, compiles and tests kernel modules inside those VMs, and uploads verified .ko artifacts with full ABI isolation.
 
-## CI/CD Overview
-1. Code push triggers CI workflow (kmod or kernel changes).
-2. CI matrix expands for all target (ARCH, KERNEL_VERSION).
-3. CI runner uses `qemu-builder` Docker image to:
-    a. Build the target kernel from source.
-    b. Build rootfs/initramfs or full QEMU disk image.
-    c. Prepare QEMU launch scripts or configs.
-4. CI runner launches the QEMU VM (or physical VM provisioner).
-5. CI injects kmod source into VM (via scp or volume mount).
-6. Inside the VM:
-    a. Build the kmod (using kernel source or in-tree headers).
-    b. Run functional/integration tests (via script or Helm later).
-7. Test results and built `.ko` modules are extracted from the VM.
-8. CI uploads artifacts, logs, and optionally destroys the VM.
+## *Kernel module* CI/CD Overview
+1. Code push triggers CI workflow (kernel module or pipeline changes).</br></br>
+2. CI matrix expands for all target (ARCH, KERNEL_VERSION).</br></br>
+3. CI runner uses `qemu-builder` Docker image to:</br>
+        a. Build the target kernel from source.</br>
+        b. Build rootfs/initramfs or full QEMU disk image.</br>
+        c. Prepare QEMU launch scripts or configs.</br></br>
+4. CI runner launches the QEMU VM (or physical VM provisioner).</br></br>
+5. CI injects kmod source into VM (via scp or volume mount).</br></br>
+6. Inside the VM:</br>
+    a. Build the kmod (using kernel source or in-tree headers).</br>
+    b. Run functional/integration tests (via script or Helm later).</br></br>
+7. Test results and built `.ko` modules are extracted from the VM.</br></br>
+8. CI uploads artifacts, logs, and optionally destroys the VM.</br></br>
 
 ## Features:
 This CI/CD pipeline is designed to support a robust and architecture-agnostic system for building and testing Linux kernel modules in isolated environments. The following features are planned as part of the implementation roadmap:
