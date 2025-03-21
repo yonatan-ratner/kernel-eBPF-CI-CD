@@ -67,13 +67,12 @@ Docker is used to build the QEMU builder image, which contains all necessary too
   - It is **required** to add your user to the `docker` group to avoid using `sudo docker`.
 
 ### GitHub user & GHCR (GitHub Container Registery)
-Used to store and retrieve the QEMU builder Docker image and other infrastructure artifacts. </br>
-    ```
-    export GITHUB_USER=*your-username*
-    export GHCR_PAT=*your-PAT*
-
-    echo "$GHCR_PAT" | docker login ghcr.io -u "$GITHUB_USER" --password-stdin
-    ``` 
+Used to store and retrieve the QEMU builder Docker image and other infrastructure artifacts.
+```
+export GITHUB_USER=*your-username*
+export GHCR_PAT=*your-PAT*
+echo "$GHCR_PAT" | docker login ghcr.io -u "$GITHUB_USER" --password-stdin
+``` 
 
 ### QEMU (placeholder - to be updated)
 QEMU will be used to boot virtual machines for building and testing kernel modules.
