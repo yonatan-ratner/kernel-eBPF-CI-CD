@@ -1,4 +1,6 @@
-# Imrpovements
+# Imrpovements/Exploration
+
+Notes r.e future plans, some are critical imrpovements and other exploration ideas.
 
 ## Artifacts
 0. Store and upload each artifact to its own 'folder' or 'space'
@@ -11,4 +13,8 @@
 2. Specific Kernel Version
 3. pull image from GHCR or build+push if no relevant image exists
 
-*. [Kata Containers](https://github.com/kata-containers/kata-containers) (pretty new, play around with after everything is DONE
+*. [Kata Containers](https://github.com/kata-containers/kata-containers) (pretty new, play around with after everything is DONE)
+
+## CI/CD Solutions
+0. Jenkins
+1. GitLab
