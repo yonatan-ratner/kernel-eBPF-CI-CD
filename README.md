@@ -57,16 +57,50 @@ This CI/CD pipeline is designed to support a robust and architecture-agnostic sy
   Helm charts will be used to manage and orchestrate test scenarios and module lifecycle inside VMs or clusters.
 
 ## pre-requisites
-- Docker - Multi Platform Builds:
-    - [Docker](https://docs.docker.com/engine/install/debian/#install-using-the-repository)
-    - [Linux post-installation steps for Docker Engine](https://docs.docker.com/engine/install/linux-postinstall/)
-        using sudo is problematic - make sure the user is part of the docker group.
-    - [Docker - Multi Platform via QEMU](https://docs.docker.com/build/building/multi-platform/#install-qemu-manually)
 
-- GHCR (GitHub Container Registery)
+This project builds and tests Linux kernel modules inside isolated virtual machines (VMs) that match the target architecture and kernel version. The following tools and configurations are required to set up and run the CI/CD pipeline or develop locally.
+
+### Docker
+Docker is used to build the QEMU builder image, which contains all necessary tools for building kernels, root filesystems, and managing QEMU virtual machines.
+- [Install Docker](https://docs.docker.com/engine/install/debian/#install-using-the-repository)
+- [Linux post-installation steps for Docker Engine](https://docs.docker.com/engine/install/linux-postinstall/)
+  - It is **required** to add your user to the `docker` group to avoid using `sudo docker`.
+
+### GitHub user & GHCR (GitHub Container Registery)
+Used to store and retrieve the QEMU builder Docker image and other infrastructure artifacts. </br>
     ```
     export GITHUB_USER=*your-username*
     export GHCR_PAT=*your-PAT*
 
     echo "$GHCR_PAT" | docker login ghcr.io -u "$GITHUB_USER" --password-stdin
-    ```  
+    ``` 
+
+### QEMU (placeholder - to be updated)
+QEMU will be used to boot virtual machines for building and testing kernel modules.
+- Installation and usage instructions will be added when relevant.
+
+### Kernel Build Tooling (placeholder - to be updated)
+The system will use standard Linux kernel build tools such as `make`, `gcc`, `binutils`, etc.
+- These will be included in the QEMU builder image.
+- Additional setup information will be added as the implementation progresses.
+
+### Root Filesystem Build Tooling (placeholder - to be updated)
+Tools for generating initramfs or full root filesystem images (e.g., `debootstrap`, `busybox`, `mkinitcpio`, etc.) will be included in the QEMU builder image.
+- Specific tools and configurations will be documented once finalized.
+
+### Test Harness / Acceptance Framework (placeholder - to be updated)
+Testing inside VMs will be driven by custom scripts, and later extended with Helm-based orchestration.
+- This section will be expanded when test frameworks are implemented.
+
+### Helm (placeholder - to be updated)
+Helm will be used in future phases for test orchestration and environment lifecycle management.
+
+### Kubernetes (placeholder - to be updated)
+The system may integrate with Kubernetes in future iterations for managing VM lifecycles and scaling test infrastructure.
+
+### Monitoring and Observability (placeholder - to be updated)
+Prometheus, Grafana, and other observability tools may be integrated later to monitor test execution and system health.
+
+### CI Cache/Storage (placeholder - to be updated)
+Optional caching systems for compiled kernels, rootfs images, and test artifacts may be introduced in later phases.
+
