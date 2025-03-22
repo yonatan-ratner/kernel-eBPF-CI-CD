@@ -1,6 +1,17 @@
 # kernel-eBPF-CI-CD
 
 This CI/CD pipeline builds Linux kernels and rootfs images inside a dedicated Docker-based QEMU builder environment, launches ephemeral VMs with exact target kernel/arch combinations, compiles and tests kernel modules inside those VMs, and uploads verified .ko artifacts with full ABI isolation.
+## MOVED TO GITLAB
+[GitLab - kernel-ebpf-CI-CD](https://gitlab.com/yonatan-ratner/kernel-eBPF-CI-CD)
+```
+Q: Why not GitHub??
+A: GitHub does not allow individuals or organizations without the Enterprise package
+   the ability to disable Forking,but GitLab does!
+
+Q: But why does that matter to you?
+A: In my workflows I intend to have ~Self Hosted Runners~ which are available as-is when ~Forking~ the repository,
+   giving brown hatters access to my machine...
+```
 
 ## *Kernel module* CI/CD Overview
 1. Code push triggers CI workflow (kernel module or pipeline changes).</br></br>
